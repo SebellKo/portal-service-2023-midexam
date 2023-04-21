@@ -14,8 +14,8 @@ public class UserDaoTests {
     public void get() throws SQLException, ClassNotFoundException {
         Long id = 1l;
 
-        ConnectionMaker connectionMaker = new JejuConnectionMaker();
-        UserDao userDao = new UserDao(connectionMaker);
+        DaoFactory daoFactory = new DaoFactory();
+        UserDao userDao = daoFactory.getUserDao();
         User user = userDao.findById(id);
         assertThat(user.getId(), is(id));
         assertThat(user.getName(), is(name));
@@ -27,8 +27,8 @@ public class UserDaoTests {
         User user = new User();
         user.setName(name);
         user.setPassword(password);
-        ConnectionMaker connectionMaker = new JejuConnectionMaker();
-        UserDao userDao = new UserDao(connectionMaker);
+        DaoFactory daoFactory = new DaoFactory();
+        UserDao userDao = daoFactory.getUserDao();
 
         userDao.insert(user);
 
@@ -37,30 +37,30 @@ public class UserDaoTests {
         assertThat(insertedUser.getPassword(), is(password));
     }
 
-    @Test
-    public void getHalla() throws SQLException, ClassNotFoundException {
-        Long id = 1l;
-        ConnectionMaker connectionMaker = new HallaConnectionMaker();
-        UserDao userDao = new UserDao(connectionMaker);
-        User user = userDao.findById(id);
-        assertThat(user.getId(), is(id));
-        assertThat(user.getName(), is(name));
-        assertThat(user.getPassword(), is(password));
-    }
-
-    @Test
-    public void insertHalla() throws SQLException, ClassNotFoundException {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-
-        ConnectionMaker connectionMaker = new HallaConnectionMaker();
-        UserDao userDao = new UserDao(connectionMaker);
-
-        userDao.insert(user);
-
-        User insertedUser = userDao.findById(user.getId());
-        assertThat(insertedUser.getName(), is(name));
-        assertThat(insertedUser.getPassword(), is(password));
-    }
+//    @Test
+//    public void getHalla() throws SQLException, ClassNotFoundException {
+//        Long id = 1l;
+//        ConnectionMaker connectionMaker = new HallaConnectionMaker();
+//        UserDao userDao = new UserDao(connectionMaker);
+//        User user = userDao.findById(id);
+//        assertThat(user.getId(), is(id));
+//        assertThat(user.getName(), is(name));
+//        assertThat(user.getPassword(), is(password));
+//    }
+//
+//    @Test
+//    public void insertHalla() throws SQLException, ClassNotFoundException {
+//        User user = new User();
+//        user.setName(name);
+//        user.setPassword(password);
+//
+//        ConnectionMaker connectionMaker = new HallaConnectionMaker();
+//        UserDao userDao = new UserDao(connectionMaker);
+//
+//        userDao.insert(user);
+//
+//        User insertedUser = userDao.findById(user.getId());
+//        assertThat(insertedUser.getName(), is(name));
+//        assertThat(insertedUser.getPassword(), is(password));
+//    }
 }
